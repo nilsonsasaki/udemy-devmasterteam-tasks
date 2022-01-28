@@ -5,16 +5,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasks.R
+import com.example.tasks.databinding.ActivityRegisterBinding
 import com.example.tasks.viewmodel.RegisterViewModel
-import kotlinx.android.synthetic.main.activity_register.*
 
 class TaskFormActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mViewModel: RegisterViewModel
+    private lateinit var binding: ActivityRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_task_form)
+
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         mViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
@@ -27,9 +30,9 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener {
         val id = v.id
         if (id == R.id.button_save) {
 
-            val name = edit_name.text.toString()
-            val email = edit_email.text.toString()
-            val password = edit_password.text.toString()
+            val name = binding.editName.text.toString()
+            val email = binding.editEmail.text.toString()
+            val password = binding.editPassword.text.toString()
 
             mViewModel.create(name, email, password)
         }
@@ -39,7 +42,7 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun listeners() {
-        button_save.setOnClickListener(this)
+        binding.buttonSave.setOnClickListener(this)
     }
 
 }
